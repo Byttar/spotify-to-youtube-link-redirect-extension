@@ -53,17 +53,23 @@ chrome.storage.sync.get('fromSpotifyAlbum').then(result => {
                 if(albumFilterButton) {
                     albumFilterButton.click();
 
-                    setTimeout(() => {
-                        const selectAlbumItenval = setInterval(() => {
-                            const album = document.querySelector(".content.style-scope.ytmusic-tabbed-search-results-renderer").children[0].children[1].children[0].children[0].children[3].children[0].children[0];
-    
-                            if(album) {
-                                album.click();
-                                clearInterval(selectAlbumItenval);
-                                chrome.storage.sync.remove('fromSpotifyAlbum')
-                            }
-                        }, 100)
-                    }, 200)
+                    const selectAlbumItenval = setInterval(() => {
+                        const album = document.querySelector(".content.style-scope.ytmusic-tabbed-search-results-renderer").children[0].children[1].children[0].children[0].children[3].children[0].children[0];
+
+                        if(album) {
+                            album.click();
+                            clearInterval(selectAlbumItenval);
+
+                            setTimeout(() => {
+                                const playButtonContent = document.querySelector("#action-buttons").children[2].children[0].click()
+                                if(playButtonContent) {
+                                    chrome.storage.sync.remove('fromSpotifyAlbum')
+                                    playButtonContent.click();
+                                    clearInterval(playButtonContent);
+                                }
+                            }, 500);
+                        }
+                    }, 100)
 
                     clearInterval(youtubeMusicInterval);
                 }
