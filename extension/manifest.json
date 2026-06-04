@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Spotify to Youtube Music Link Redirect",
     "description": "A Extension that will redirect you from Spotify to Youtube Music",
-    "version": "1.1",
+    "version": "1.2",
     "action": {
       "default_icon": "spotify_to_youtube_music.png"
     },
