@@ -44,7 +44,10 @@ if(urlRegex.test(location.href) && location.href.includes('album')) {
 
 chrome.storage.sync.get('fromSpotifyAlbum').then(result => {
     if(result.fromSpotifyAlbum) {
+        chrome.storage.sync.remove('fromSpotifyAlbum')
+
         const youtubeMusicInterval = setInterval(() => {
+
             try {
                 const albumFilterButtons = document.querySelectorAll("yt-formatted-string.ytmusic-chip-cloud-chip-renderer");
 
@@ -63,7 +66,6 @@ chrome.storage.sync.get('fromSpotifyAlbum').then(result => {
                             setTimeout(() => {
                                 const playButtonContent = document.querySelector("#action-buttons").children[2].children[0].click()
                                 if(playButtonContent) {
-                                    chrome.storage.sync.remove('fromSpotifyAlbum')
                                     playButtonContent.click();
                                     clearInterval(playButtonContent);
                                 }
@@ -74,6 +76,7 @@ chrome.storage.sync.get('fromSpotifyAlbum').then(result => {
                     clearInterval(youtubeMusicInterval);
                 }
             } catch (ex) {
+                chrome.storage.sync.remove('fromSpotifyAlbum')
             }
         }, 100);
         
@@ -83,12 +86,13 @@ chrome.storage.sync.get('fromSpotifyAlbum').then(result => {
 
 chrome.storage.sync.get('fromSpotify').then(result => {
     if(result.fromSpotify) {
+        chrome.storage.sync.remove('fromSpotify')
+
         const youtubeMusicInterval = setInterval(() => {
             try {
                 const playButtonContent = document.getElementsByClassName('thumbnail-container')[0].children[0].children[2].children[1].children[0];
 
                 if(playButtonContent) {
-                    chrome.storage.sync.remove('fromSpotify')
                     playButtonContent.click();
 
                     clearInterval(youtubeMusicInterval);
